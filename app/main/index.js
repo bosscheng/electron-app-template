@@ -20,3 +20,13 @@ const app = new App();
 process.on("uncaughtException", e => {
     app.logger && app.logger.warn("uncaughtException: %s", e)
 });
+
+const singleInstanceLock = app.requestSingleInstanceLock();
+
+if (singleInstanceLock) {
+
+} else {
+    app.quit();
+}
+
+
