@@ -1,2 +1,2 @@
-# electron-app
- electron app
+# electron-app-template
+ electron app template
