@@ -16,6 +16,7 @@ const replaceData = (key, lang) => {
 
 
 module.exports = (app => {
+    // 绑定 t 方法。
     app.t = ((title, lang = {}) => {
         if (app.locale.startsWith('zh')) {
             return replaceData(title, lang);

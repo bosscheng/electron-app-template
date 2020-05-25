@@ -10,6 +10,7 @@
     "agentkeepalive": "^4.1.2",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2",
-    "winston-transport": "^4.3.0"
+    "winston-transport": "^4.3.0",
+    "cookie": "^0.4.1"
   }
 }

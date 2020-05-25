@@ -2,7 +2,7 @@
  * Date:2020/5/21
  * Desc:
  */
-const {app, globalShortcut, session, crashReporter} = require('electron');
+const {app: electronApp, globalShortcut, session, crashReporter} = require('electron');
 
 crashReporter.start({
     productName: "test",
@@ -21,12 +21,36 @@ process.on("uncaughtException", e => {
     app.logger && app.logger.warn("uncaughtException: %s", e)
 });
 
-const singleInstanceLock = app.requestSingleInstanceLock();
+const singleInstanceLock = electronApp.requestSingleInstanceLock();
 
 if (singleInstanceLock) {
+    //
+    electronApp.on('second-instance', () => {
+
+    });
+
+    //
+    electronApp.on('ready', async () => {
+
+    });
+
 
 } else {
-    app.quit();
+    electronApp.quit();
 }
+
+
+electronApp.on('activate', () => {
+
+});
+
+electronApp.on('before-quit', () => {
+    globalShortcut.unregisterAll();
+    electronApp.exit();
+});
+
+electronApp.on('window-all-closed', () => {
+
+});
 
 
