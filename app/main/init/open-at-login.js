@@ -7,7 +7,7 @@ const {ipcMain, app: electronApp} = require('electron');
 // 属性返回启动 Node.js 进程的可执行文件的绝对路径名。
 const exePath = process.execPath;
 
-module.exports = (() => {
+module.exports = ((app) => {
     ipcMain.handle('get-auto-start-status', () => electronApp.getLoginItemSettings())
 
     ipcMain.on('auto-start-open', () => {

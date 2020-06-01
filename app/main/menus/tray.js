@@ -1,6 +1,6 @@
 /**
  * Date:2020/5/29
- * Desc:
+ * Desc: 在mac 中就是吸顶部的时候右键选项。在mac 中就是
  */
 const {app: electronApp} = require('electron');
 
