@@ -4,7 +4,7 @@
   "dependencies": {
     "electron": "^9.0.0",
     "electron-json-storage-alt": "^0.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "ylru": "^1.2.1",
     "urllib": "^2.35.0",
     "agentkeepalive": "^4.1.2",
