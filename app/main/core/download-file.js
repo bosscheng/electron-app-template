@@ -34,6 +34,7 @@ const downloadFile = async (app, url) => {
         const needShowProgress = Number(request.headers['content-length']) > 1048576;
 
         const downloadResponse = (type) => {
+            // progress
             app.mainWindow.webContents.send('download-progress', {type});
         }
 

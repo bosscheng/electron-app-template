@@ -76,6 +76,7 @@ class App {
         initHttpClient(this);
 
         const initApplication = require('../menus/application');
+        const initLoginWindow = require('../windows/login');
         const initMainWindow = require('../windows/main');
         const initIPC = require('./ipc');
         const initOpenAtLogin = require('./open-at-login');
@@ -83,6 +84,7 @@ class App {
         const initShortcut = require('./shortcut');
         require('./protocols');
         this.mainWindow = initMainWindow(this);
+        this.loginWindow = initLoginWindow(this);
 
         initApplication(this);
         initIPC(this);

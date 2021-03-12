@@ -26,10 +26,19 @@ const singleInstanceLock = electronApp.requestSingleInstanceLock();
 if (singleInstanceLock) {
     //
     electronApp.on('second-instance', () => {
-
+        //  查看打开的是否是 login window 还是 main window
+        app.loginWindow &&
+        !app.loginWindow.isDestroyed() ?
+            (app.loginWindow.isVisible() || app.loginWindow.show(),
+            app.loginWindow.isMinimized() && app.loginWindow.restore(),
+                app.loginWindow.focus()) :
+            app.mainWindow &&
+            (app.mainWindow.isVisible() || app.mainWindow.show(),
+            app.mainWindow.isMinimized() && app.mainWindow.restore(),
+                app.mainWindow.focus())
     });
 
-    //
+    // 监听  ready 事件
     electronApp.on('ready', async () => {
 
     });
