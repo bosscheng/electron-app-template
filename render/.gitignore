@@ -1,5 +1,3 @@
 # Created by .ignore support plugin (hsz.mobi)
-node_modules
 .idea
-render/node_modules
-
+node_modules

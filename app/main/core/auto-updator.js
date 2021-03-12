@@ -19,7 +19,7 @@ const {exec} = require('child_process');
 //
 const {renameSync, createWriteStream, existsSync, readdirSync} = require('fs');
 // The UNIX command rm -rf for node.
-const {sync: rimrafSync} = require('rimraf');
+const {sync: rimrafSync} = require('rimraf-alt');
 
 const {app: electronApp, ipcMain, shell} = require('electron');
 

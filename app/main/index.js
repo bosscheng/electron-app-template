@@ -40,7 +40,8 @@ if (singleInstanceLock) {
 
     // 监听  ready 事件
     electronApp.on('ready', async () => {
-
+        await app.init();
+        app.launchLogin();
     });
 
 

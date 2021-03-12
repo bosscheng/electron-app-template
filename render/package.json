@@ -1,0 +1,64 @@
+{
+  "name": "vue-admin-template",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "stg": "vue-cli-service serve --mode staging",
+    "preview": "node build/preview.js",
+    "build": "vue-cli-service build",
+    "build:report": "vue-cli-service build --report"
+  },
+  "dependencies": {
+    "axios": "0.21.1",
+    "element-ui": "2.15.0",
+    "vue": "2.6.12",
+    "vue-router": "3.5.1",
+    "vuex": "3.6.2",
+    "screenfull": "5.1.0",
+    "nprogress": "0.2.0",
+    "lodash": "4.17.21",
+    "js-cookie": "2.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0",
+    "@babel/register": "7.0.0",
+    "@vue/cli-plugin-babel": "3.5.3",
+    "@vue/cli-plugin-unit-jest": "3.5.3",
+    "@vue/cli-service": "3.5.3",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
+    "chalk": "2.4.2",
+    "chokidar": "2.1.5",
+    "connect": "3.6.6",
+    "html-webpack-plugin": "3.2.0",
+    "husky": "1.3.1",
+    "lint-staged": "8.1.5",
+    "mockjs": "1.0.1-beta3",
+    "node-sass": "^4.9.0",
+    "plop": "2.3.0",
+    "runjs": "^4.3.2",
+    "sass-loader": "^7.1.0",
+    "script-ext-html-webpack-plugin": "2.1.3",
+    "script-loader": "0.7.2",
+    "serve-static": "^1.13.2",
+    "svg-sprite-loader": "4.1.3",
+    "svgo": "1.2.0",
+    "vue-template-compiler": "2.6.12",
+    "autoprefixer": "^9.6.0",
+    "http-proxy": "1.17.0",
+    "cross-env": "^7.0.2"
+  },
+  "keywords": [
+    "m7s"
+  ],
+  "engines": {
+    "node": ">=8.9",
+    "npm": ">=3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

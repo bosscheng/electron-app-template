@@ -14,9 +14,7 @@ const initI18n = require('./i18n');
 const initLogger = require('../core/logger');
 const initHttpClient = require('../core/http-client');
 
-
 const AUTO_UPDATOR = Symbol("Context#autoUpdator");
-const LOGIN_HELPER = Symbol("Context#loginHelper");
 
 
 class App {
@@ -76,7 +74,6 @@ class App {
         initHttpClient(this);
 
         const initApplication = require('../menus/application');
-        const initLoginWindow = require('../windows/login');
         const initMainWindow = require('../windows/main');
         const initIPC = require('./ipc');
         const initOpenAtLogin = require('./open-at-login');
@@ -84,17 +81,22 @@ class App {
         const initShortcut = require('./shortcut');
         require('./protocols');
         this.mainWindow = initMainWindow(this);
-        this.loginWindow = initLoginWindow(this);
 
         initApplication(this);
         initIPC(this);
         initOpenAtLogin(this);
         initTray(this);
         initShortcut(this);
-
     }
 
-
+    launchLogin() {
+        if (!this.loginWindow || (this.loginWindow && this.loginWindow.isDestroyed())) {
+            const initLoginWindow = require('../windows/login');
+            this.loginWindow = initLoginWindow(this);
+        }
+        this.loginWindow.loadURL(this.getResourceURL('/login'));
+        this.loginWindow.show();
+    }
 }
 
 module.exports = App;
