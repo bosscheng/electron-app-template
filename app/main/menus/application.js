@@ -14,10 +14,19 @@ module.exports = (app => {
                     label: app.t('关于xx'),
                     accelerator: "CommandOrControl+,",
                     click: () => {
-
+                        app.mainWindow && app.mainWindow.webContents.send("open-setting")
                     }
                 },
                 {type: "separator"}, // 一根线
+                {
+                    label: app.t('debug'),
+                    click: () => {
+                        if(app.loginWindow){
+                            app.loginWindow.webContents.openDevTools();
+                        }
+                        // app.mainWindow && app.mainWindow.webContents.send("open-setting")
+                    }
+                },
                 {
                     label: app.t('退出'),
                     accelerator: "CommandOrControl+Q",
@@ -27,11 +36,10 @@ module.exports = (app => {
                 }
             ]
         },
-        {},
         {
-            label: e.__("窗口"),
+            label: app.t("窗口"),
             role: "window",
-            submenu:[
+            submenu: [
                 {
                     label: app.t('最小化'),
                     role: "minimize",

@@ -9,14 +9,14 @@ const {WEBPACK_DEV_SERVER_PORT: port} = process.env;
 
 module.exports = (app => {
     app.getLoadingURL = () => {
-        let url = path.join(__dirname, '../../../build/renderer/loading.html');
+        let pathname = path.join(__dirname, '../../../build/renderer/loading.html');
 
         if (app.isDev) {
-            url = path.join(__dirname, '../../renderer/loading.html');
+            pathname = path.join(__dirname, '../../renderer/loading.html');
         }
 
         return url.format({
-            pathname: url,
+            pathname: pathname,
             protocol: 'file:'
         })
     };

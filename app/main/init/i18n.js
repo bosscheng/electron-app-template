@@ -2,6 +2,7 @@
  * Date:2020/5/21
  * Desc:
  */
+const en = require('../locales/en-US');
 
 // 匹配一个单字字符（字母、数字或者下划线）。等价于 [A-Za-z0-9_]。
 const interpolate_reg = /\{(\w*)\}/g;
@@ -22,6 +23,6 @@ module.exports = (app => {
             return replaceData(title, lang);
         }
         const enLang = en[title];
-        return enLang ? replaceData(enLang, lang) : enLang;
+        return enLang ? replaceData(enLang, lang) : title;
     })
 });

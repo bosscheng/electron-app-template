@@ -38,12 +38,15 @@ if (singleInstanceLock) {
                 app.mainWindow.focus())
     });
 
-    // 监听  ready 事件
+    // 监听 ready 事件
     electronApp.on('ready', async () => {
-        await app.init();
+        try {
+            await app.init();
+        } catch (e) {
+            console.error(e);
+        }
         app.launchLogin();
     });
-
 
 } else {
     electronApp.quit();
@@ -60,7 +63,9 @@ electronApp.on('before-quit', () => {
 });
 
 electronApp.on('window-all-closed', () => {
-
+    if (!app.isMac) {
+        electronApp.quit();
+    }
 });
 
 

@@ -7,10 +7,11 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {isElectron, logout} from "@/utils/electron";
 
 const TOKEN_KEY = '_token';
 // 从 session storage 获取到
-const _token = sessionStorage.getItem(TOKEN_KEY) || '';
+const _token = localStorage.getItem(TOKEN_KEY) || '';
 
 Vue.use(Vuex);
 
@@ -51,11 +52,14 @@ const store = new Vuex.Store({
     SET_TOKEN: (state, token) => {
       let _token = 'Bearer ' + token;
       state.token = _token;
-      sessionStorage.setItem(TOKEN_KEY, _token);
+      localStorage.setItem(TOKEN_KEY, _token);
     },
     CLEAR_TOKEN: (state) => {
       state.token = '';
-      sessionStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(TOKEN_KEY);
+      if (isElectron) {
+        logout();
+      }
     },
   },
   actions: {

@@ -12,9 +12,12 @@ const AutoUpdator = require('../core/auto-updator');
 const initConstants = require('../constants');
 const initI18n = require('./i18n');
 const initLogger = require('../core/logger');
+const initUrlUtil = require('../core/url');
 const initHttpClient = require('../core/http-client');
 
 const AUTO_UPDATOR = Symbol("Context#autoUpdator");
+
+const CONFIG = Symbol("CONFIG");
 
 
 class App {
@@ -26,6 +29,16 @@ class App {
         this.currentContext = null;
         this.locale = '';
         this.storage = null;
+    }
+
+    get config() {
+        if (this[CONFIG]) {
+            return this[CONFIG];
+        }
+        this[CONFIG] = {};
+        this[CONFIG].pkg = require("../../../package");
+
+        return this[CONFIG];
     }
 
     createContext() {
@@ -63,14 +76,14 @@ class App {
     }
 
     async init() {
-        const storage = require('electron-json-storage-alt');
-        this.storage = storage;
+        this.storage = require('electron-json-storage-alt');
         this.locale = await this.getLocale();
 
         //
         initConstants(this);
         initI18n(this);
         initLogger(this);
+        initUrlUtil(this);
         initHttpClient(this);
 
         const initApplication = require('../menus/application');
@@ -81,7 +94,7 @@ class App {
         const initShortcut = require('./shortcut');
         require('./protocols');
         this.mainWindow = initMainWindow(this);
-
+        console.log('init');
         initApplication(this);
         initIPC(this);
         initOpenAtLogin(this);

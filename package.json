@@ -3,22 +3,32 @@
   "version": "0.0.1",
   "description": "electron Desktop App",
   "main": "./app/main/index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development WEBPACK_DEV_SERVER_PORT=3000 electron .",
+    "build": "electron ."
+  },
   "dependencies": {
-    "electron": "^9.4.0",
-    "electron-json-storage-alt": "^0.1.0",
+    "electron": "9.4.0",
+    "electron-json-storage-alt": "0.1.0",
     "electron-pdf-window-alt": "0.1.2",
-    "lodash": "^4.17.19",
-    "ylru": "^1.2.1",
-    "urllib": "^2.35.0",
-    "agentkeepalive": "^4.1.2",
+    "electron-webview-schedule": "^0.1.6",
+    "electron-windows": "^0.2.1",
+    "lodash": "4.17.19",
+    "ylru": "1.2.1",
+    "urllib": "2.35.0",
+    "agentkeepalive": "4.1.2",
     "rimraf-alt": "0.2.0",
     "cross-spawn": "7.0.1",
-    "lodash": "4.17.15",
     "mkdirp": "0.5.1",
     "debug": "4.1.1",
-    "winston": "^3.2.1",
-    "winston-daily-rotate-file": "^4.4.2",
-    "winston-transport": "^4.3.0",
-    "cookie": "^0.4.1"
+    "mz": "^2.7.0",
+    "winston": "3.2.1",
+    "network-interface": "1.0.0",
+    "qs": "6.9.6",
+    "winston-daily-rotate-file": "4.4.2",
+    "winston-transport": "4.3.0",
+    "cookie": "0.4.1",
+    "cross-env": "7.0.3",
+    "v8-compile-cache": "2.3.0"
   }
 }

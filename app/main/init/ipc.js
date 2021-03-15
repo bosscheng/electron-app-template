@@ -13,6 +13,22 @@ module.exports = (app => {
         app.getLogger('webLogger').info(args);
     });
 
+    ipcMain.on('login-success-and-main-show', () => {
+        console.log('ipc:login-success-and-main-show');
+        app.loginWindow.destroy();
+        if (app.isDev) {
+            app.mainWindow.webContents.openDevTools();
+        }
+        app.mainWindow.loadURL(app.getResourceURL('/'));
+        app.mainWindow.show();
+    });
+
+    ipcMain.on('logout', () => {
+        app.mainWindow.destroy();
+        app.launchLogin();
+    });
+
+
     ipcMain.handle('switch-language', async (event, args) => {
         await app.setLocale(args);
     });

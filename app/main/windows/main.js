@@ -4,13 +4,10 @@
  */
 const path = require('path');
 const url = require('url');
-const {parse: cookieParse} = require('cookie');
 const {app: electronApp, BrowserView, BrowserWindow, dialog} = require('electron');
-const downloadFile = require('../core/download-file');
 const {sleep} = require('../utils');
 
 module.exports = (app => {
-
     const browserWindow = new BrowserWindow({
         width: 1280,
         height: 800,
@@ -23,25 +20,26 @@ module.exports = (app => {
         webPreferences: {
             nodeIntegration: true,
             webSecurity: true,
-            preload: path.join(__dirname, 'preload.js')
+            webviewTag: true,
+            preload: path.join(__dirname, './preload.js')
         }
     });
 
-    const browserView = new BrowserView();
+    const loadingBrowserView = new BrowserView();
 
     const [windowWidth, windowHeight] = browserWindow.getSize();
-    browserWindow.setBrowserView(browserView);
-    browserView.setBounds({
+    browserWindow.setBrowserView(loadingBrowserView);
+    loadingBrowserView.setBounds({
         x: 0,
         y: 0,
         width: windowWidth,
         height: windowHeight
     });
-    browserView.webContents.loadURL(app.getLoadingURL());
+    loadingBrowserView.webContents.loadURL(app.getLoadingURL());
 
     browserWindow.on('resize', () => {
         const [width, height] = browserWindow.getSize();
-        browserView.setBounds({
+        loadingBrowserView.setBounds({
             x: 0,
             y: 0,
             width: width,
@@ -51,20 +49,20 @@ module.exports = (app => {
 
 
     browserWindow.webContents.on('dom-ready', () => {
-        browserWindow.removeBrowserView(browserView);
+        browserWindow.removeBrowserView(loadingBrowserView);
     });
 
-    const webRequestFilter = {
-        urls: []
-    };
-
-    browserWindow.webContents.session.webRequest.onBeforeRequest(webRequestFilter, (details, callback) => {
-        // 监听 before request
-    });
-
-    browserWindow.webContents.session.webRequest.onBeforeSendHeaders(webRequestFilter, (details, callback) => {
-        // 监听 before request
-    });
+    // const webRequestFilter = {
+    //     urls: []
+    // };
+    //
+    // browserWindow.webContents.session.webRequest.onBeforeRequest(webRequestFilter, (details, callback) => {
+    //     // 监听 before request
+    // });
+    //
+    // browserWindow.webContents.session.webRequest.onBeforeSendHeaders(webRequestFilter, (details, callback) => {
+    //     // 监听 before request
+    // });
 
 
     browserWindow.on('crashed', () => {
@@ -86,7 +84,7 @@ module.exports = (app => {
         browserWindow.on('restore', () => {
             //
             browserWindow.webContents.send('update-check');
-
+            browserWindow.webContents.send('log-pv');
         })
     }
 
@@ -115,5 +113,8 @@ module.exports = (app => {
         browserWindow.hide();
         browserWindow.webContents.send('window-will-hide');
     })
+
+
+    return browserWindow;
 });
 

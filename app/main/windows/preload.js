@@ -12,6 +12,10 @@ window.appData = {
 
 const {ipcRenderer, shell} = require('electron');
 
+window._ipcRenderer = ipcRenderer;
+
+window._isElectron = true;
+
 document.onreadystatechange = () => {
     if ('interactive' === document.readyState) {
         //  可以预先处理dom了。
@@ -79,3 +83,5 @@ window.addEventListener('keydown', e => {
         e.preventDefault();
     }
 }, false);
+
+

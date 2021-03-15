@@ -6,9 +6,9 @@
 const path = require('path');
 const {Menu, Tray, nativeTheme} = require('electron');
 
-const macLightIcon = '';
-const macDarkIcon = '';
-const winLightIcon = '';
+const macLightIcon = path.join(__dirname, "../../../dist-assets/tray/tray@2x.png");
+const macDarkIcon = path.join(__dirname, "../../../dist-assets/tray/tray-active@2x.png");
+const winLightIcon = path.join(__dirname, "../../../dist-assets/tray/tray-windows.png");
 
 let tray = '';
 
@@ -24,7 +24,7 @@ const mountTray = app => {
     const contextMenu = Menu.buildFromTemplate(require('../menus/tray')(app));
 
     tray.on('click', () => {
-        app.mainVindow.show();
+        app.loginWindow && !app.loginWindow.isDestroyed() ? app.loginWindow.isVisible() ? app.loginWindow.hide() : app.loginWindow.show() : app.mainWindow && (app.mainWindow.isVisible() ? app.mainWindow.hide() : app.mainWindow.show())
     });
     tray.setToolTip(app.t('xx'));
     tray.on('right-click', () => tray.popUpContextMenu(contextMenu));
