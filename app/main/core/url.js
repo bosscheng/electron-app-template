@@ -37,7 +37,7 @@ module.exports = (app => {
         } else {
             const distDir = path.join(__dirname, '../../../build');
             return url.format({
-                pathname: path.join(distDir, './renderer/index.html'),
+                pathname: path.join(distDir, './renderer/html/index.html'),
                 protocol: 'file:',
                 slashes: true,
                 hash: hash,
