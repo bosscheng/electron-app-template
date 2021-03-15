@@ -5,12 +5,16 @@
 */
 
 import Layout from '~/views/layout/Layout';
-
+import Login from '../views/login/index';
+import Logout from '../views/logout/index';
+import Page404 from '../views/error/404';
+import Home from '../views/home/index';
+import Test from '../views/test/index';
 
 let constantRouterMap = [
-  {path: '/login', component: () => import('../views/login/index'), hidden: true},
-  {path: '/logout', component: () => import('../views/logout/index'), hidden: true},
-  {path: '/404', component: () => import('../views/error/404'), hidden: true},
+  {path: '/login', component: Login, hidden: true},
+  {path: '/logout', component: Logout, hidden: true},
+  {path: '/404', component: Page404, hidden: true},
   // 首页`
   {
     path: '',
@@ -18,7 +22,7 @@ let constantRouterMap = [
     redirect: 'home',
     children: [{
       path: 'home',
-      component: () => import('../views/home/index'),
+      component: Home,
       name: 'home',
       meta: {title: 'home', icon: 'excel', noCache: true}
     }]
@@ -28,7 +32,7 @@ let constantRouterMap = [
     component: Layout,
     children: [{
       path: 'index',
-      component: () => import('../views/test/index'),
+      component: Test,
       name: 'test',
       meta: {title: 'test', icon: 'excel', noCache: true}
     }]

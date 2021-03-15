@@ -8,7 +8,7 @@ const {BrowserView, BrowserWindow} = require('electron');
 module.exports = (app => {
 
     const browserWindow = new BrowserWindow({
-        width: 400,
+        width: 500,
         height: 600,
         frame: app.isMac,
         show: false,
@@ -30,7 +30,7 @@ module.exports = (app => {
     const handleFailure = () => {
         console.log('browserWindow-handleFailure');
         browserWindow.removeBrowserView(loadingBrowserView);
-        browserWindow.loadURL(app.getResourceURL('/load-failure'));
+        browserWindow.loadURL(app.getResourceURL('/404'));
     };
 
     browserWindow.webContents.on('crashed', handleFailure);

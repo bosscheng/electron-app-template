@@ -10,9 +10,12 @@ const name = defaultSettings.name || 'UI';
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = process.env.NODE_ENV === 'development';
 
+console.log(isProd);
+
 module.exports = {
   publicPath: isProd ? './' : '/',
-  assetsDir: 'static',
+  outputDir:resolve('../build/renderer'),
+  assetsDir: 'assets',
   lintOnSave: isDev,
   productionSourceMap: false,
   devServer: {
