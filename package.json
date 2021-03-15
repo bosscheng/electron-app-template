@@ -4,7 +4,7 @@
   "description": "electron Desktop App",
   "main": "./app/main/index.js",
   "dependencies": {
-    "electron": "^9.0.0",
+    "electron": "^9.4.0",
     "electron-json-storage-alt": "^0.1.0",
     "electron-pdf-window-alt": "0.1.2",
     "lodash": "^4.17.19",
