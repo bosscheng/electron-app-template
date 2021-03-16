@@ -41,6 +41,7 @@ module.exports = (app => {
                             message: `${options.timestamp} ${options.message}`
                         };
 
+                        // 提交服务器端的日志地址。
                         const url = '/electron/log';
 
                         // request

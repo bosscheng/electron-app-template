@@ -8,7 +8,7 @@
                 <el-menu-item :index="item.path+'/'+item.children[0].path">
                     <svg-icon v-if="item.children[0].meta&&item.children[0].meta.icon"
                               :icon-class="item.children[0].meta.icon"></svg-icon>
-                    <span v-if="item.children[0].meta&&item.children[0].meta.title" slot="title">{{item.children[0].meta.title}}</span>
+                    <span v-if="item.children[0].meta&&item.children[0].meta.title" slot="title">{{$t(item.children[0].meta.title)}}</span>
                 </el-menu-item>
             </router-link>
 
@@ -28,7 +28,7 @@
                         <el-menu-item :index="item.path+'/'+child.path">
                             <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
                             <span v-if="child.meta&&child.meta.title"
-                                  slot="title">{{child.meta.title}}</span>
+                                  slot="title">{{$t(child.meta.title)}}</span>
                         </el-menu-item>
                     </router-link>
                 </template>

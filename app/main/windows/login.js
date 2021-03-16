@@ -28,7 +28,7 @@ module.exports = (app => {
     });
 
     const handleFailure = () => {
-        console.log('browserWindow-handleFailure');
+        app.logger.info('browserWindow-handleFailure');
         browserWindow.removeBrowserView(loadingBrowserView);
         browserWindow.loadURL(app.getResourceURL('/404'));
     };
@@ -51,24 +51,24 @@ module.exports = (app => {
     loadingBrowserView.webContents.loadURL(app.getLoadingURL());
 
     browserWindow.webContents.on('will-navigate', () => {
-        console.log('will-navigate');
+        app.logger.info('will-navigate');
         browserWindow.setBrowserView(loadingBrowserView);
     });
 
     //
     browserWindow.webContents.on('dom-ready', async (event) => {
-        console.log('browserWindow, dom-ready');
+        app.logger.info('browserWindow, dom-ready');
         browserWindow.removeBrowserView(loadingBrowserView);
     });
 
     browserWindow.on('close', event => {
-        console.log('browserWindow-close');
+        app.logger.info('browserWindow-close');
         event.preventDefault();
         browserWindow.hide();
     });
 
     if (app.isDev) {
-        console.log('open dev tools');
+        app.logger.info('open dev tools');
         browserWindow.webContents.openDevTools();
     }
 

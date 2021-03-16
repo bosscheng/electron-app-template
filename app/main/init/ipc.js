@@ -13,8 +13,9 @@ module.exports = (app => {
         app.getLogger('webLogger').info(args);
     });
 
+    //
     ipcMain.on('login-success-and-main-show', () => {
-        console.log('ipc:login-success-and-main-show');
+        app.logger.info('ipc:login-success-and-main-show');
         app.loginWindow.destroy();
         if (app.isDev) {
             app.mainWindow.webContents.openDevTools();
@@ -23,6 +24,7 @@ module.exports = (app => {
         app.mainWindow.show();
     });
 
+    //
     ipcMain.on('logout', () => {
         app.mainWindow.destroy();
         app.launchLogin();
@@ -30,6 +32,7 @@ module.exports = (app => {
 
 
     ipcMain.handle('switch-language', async (event, args) => {
+        app.logger.info(`switch-language:${args}`);
         await app.setLocale(args);
     });
 

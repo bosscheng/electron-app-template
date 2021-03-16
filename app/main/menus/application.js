@@ -19,12 +19,9 @@ module.exports = (app => {
                 },
                 {type: "separator"}, // 一根线
                 {
-                    label: app.t('debug'),
+                    label: app.t('调试'),
                     click: () => {
-                        if(app.loginWindow){
-                            app.loginWindow.webContents.openDevTools();
-                        }
-                        // app.mainWindow && app.mainWindow.webContents.send("open-setting")
+
                     }
                 },
                 {

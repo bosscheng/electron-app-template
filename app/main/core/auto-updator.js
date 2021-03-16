@@ -56,7 +56,7 @@ class AutoUpdator {
             })
         } catch (e) {
             this.app.mainWindow.webContents.send('update-download-failed');
-            console.warn(e);
+            app.logger.warn(e);
         }
 
         await this.unzipAndReinstall();
@@ -81,7 +81,7 @@ class AutoUpdator {
         try {
             await this.cleanOldArchive();
         } catch (e) {
-            console.warn(e);
+            app.logger.warn(e);
         }
 
         if (this.app.isMac) {
@@ -91,7 +91,7 @@ class AutoUpdator {
                 try {
                     await exec(`unzip -o ${latestPathMacZip}`, {cwd: resourcePath, maxBuffer: 2 ** 28})
                 } catch (e) {
-                    console.warn(e);
+                    app.logger.warn(e);
                 }
 
                 let waitResult = await waitUtil(() => existsSync(latestPath), {
@@ -168,7 +168,7 @@ class AutoUpdator {
                         reject();
                     }
                 } catch (e) {
-                    console.warn(e);
+                    app.logger.warn(e);
                 }
             });
             request.res.on('error', reject);

@@ -8,6 +8,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {isElectron, logout} from "@/utils/electron";
+import {LANGUAGE_TYPE} from "@/constant/constant";
+import Cookies from 'js-cookie';
 
 const TOKEN_KEY = '_token';
 // 从 session storage 获取到
@@ -29,7 +31,8 @@ const store = new Vuex.Store({
     },
     device: 'desktop',
     token: _token,
-    userName: 'admin'
+    userName: 'admin',
+    language: Cookies.get('language') || LANGUAGE_TYPE.zh,
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -61,6 +64,10 @@ const store = new Vuex.Store({
         logout();
       }
     },
+    SET_LANGUAGE: (state, language) => {
+      state.language = language;
+      Cookies.set('language', language);
+    }
   },
   actions: {
     toggleSideBar({commit}) {

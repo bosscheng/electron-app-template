@@ -10,3 +10,7 @@ export function loginSuccessAndMainShow() {
 export function logout() {
   _rpc && _rpc.send('logout');
 }
+
+export function switchLanguage(lang) {
+  _rpc && _rpc.send('switch-language', lang);
+}

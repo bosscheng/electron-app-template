@@ -43,7 +43,7 @@ if (singleInstanceLock) {
         try {
             await app.init();
         } catch (e) {
-            console.error(e);
+            app.logger.warn(e);
         }
         app.launchLogin();
     });

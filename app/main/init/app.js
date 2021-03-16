@@ -78,13 +78,13 @@ class App {
     async init() {
         this.storage = require('electron-json-storage-alt');
         this.locale = await this.getLocale();
-
         //
         initConstants(this);
         initI18n(this);
         initLogger(this);
         initUrlUtil(this);
         initHttpClient(this);
+        this.logger.info(`current lang is ${this.locale}`);
 
         const initApplication = require('../menus/application');
         const initMainWindow = require('../windows/main');
@@ -94,7 +94,7 @@ class App {
         const initShortcut = require('./shortcut');
         require('./protocols');
         this.mainWindow = initMainWindow(this);
-        console.log('init');
+        this.logger.info('init');
         initApplication(this);
         initIPC(this);
         initOpenAtLogin(this);

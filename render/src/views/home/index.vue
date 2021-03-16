@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-        this is home page
+        {{$t('views.homeTips')}}
     </div>
 </template>
 

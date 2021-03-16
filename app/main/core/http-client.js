@@ -68,7 +68,7 @@ class HttpClient extends urllib.HttpClient2 {
             // 一次请求的时间差
             const timestamp = Date.now() - nowDate;
             // logger 日志记录
-            console.log(timestamp);
+            this.logger.info(timestamp);
 
             if (!options.disableLogger) {
                 this.logger.info([url, options.method, request && request.status, error && error.message].join("^"));
