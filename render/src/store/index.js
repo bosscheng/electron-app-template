@@ -33,6 +33,7 @@ const store = new Vuex.Store({
     token: _token,
     userName: 'admin',
     language: Cookies.get('language') || LANGUAGE_TYPE.zh,
+    electronConfig: {}
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -67,6 +68,9 @@ const store = new Vuex.Store({
     SET_LANGUAGE: (state, language) => {
       state.language = language;
       Cookies.set('language', language);
+    },
+    UPDATE_ELECTRON_CONFIG: (state, config = {}) => {
+      state.electronConfig = config;
     }
   },
   actions: {

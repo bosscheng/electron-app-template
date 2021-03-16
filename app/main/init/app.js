@@ -5,6 +5,7 @@
 
 const Context = require('./context');
 const {promisify} = require('util');
+const path = require('path');
 const _ = require('lodash');
 
 const AutoUpdator = require('../core/auto-updator');
@@ -77,6 +78,10 @@ class App {
 
     async init() {
         this.storage = require('electron-json-storage-alt');
+        if (this.isDev) {
+            this.storage.setDataPath(path.join(process.cwd(), 'storage'));
+        }
+
         this.locale = await this.getLocale();
         //
         initConstants(this);
@@ -84,6 +89,7 @@ class App {
         initLogger(this);
         initUrlUtil(this);
         initHttpClient(this);
+        this.logger.info(`storage data path is ${this.storage.getDataPath()}`)
         this.logger.info(`current lang is ${this.locale}`);
 
         const initApplication = require('../menus/application');
@@ -97,7 +103,7 @@ class App {
         this.logger.info('init');
         initApplication(this);
         initIPC(this);
-        initOpenAtLogin(this);
+        initOpenAtLogin();
         initTray(this);
         initShortcut(this);
     }

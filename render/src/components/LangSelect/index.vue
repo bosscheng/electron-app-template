@@ -12,18 +12,34 @@
 
 <script>
   import {mapState} from 'vuex';
+  import {LANGUAGE_TYPE} from "../../constant/constant";
   import {isElectron, switchLanguage} from "../../utils/electron";
 
   export default {
     computed: {
       ...mapState({
         language: state => state.language,
+        electronLang: state => state.electronConfig.locale
       }),
+    },
+    watch: {
+      electronLang(val) {
+        console.log(val);
+        if (val) {
+          let lang = LANGUAGE_TYPE.zh;
+          if (('' + val).startsWith('en')) {
+            lang = LANGUAGE_TYPE.en;
+          }
+
+          if (lang !== this.language) {
+            this.updateLanguage(lang);
+          }
+        }
+      }
     },
     methods: {
       handleSetLanguage(lang) {
-        this.$i18n.locale = lang;
-        this.$store.commit('SET_LANGUAGE', lang);
+        this.updateLanguage(lang);
         let msg = lang === 'zh' ? '语言切换成功！' : 'Switch Language Success!';
         // message 提示。
         this.$message({
@@ -34,6 +50,10 @@
         if (isElectron) {
           switchLanguage(lang);
         }
+      },
+      updateLanguage(lang) {
+        this.$i18n.locale = lang;
+        this.$store.commit('SET_LANGUAGE', lang);
       }
     }
   }

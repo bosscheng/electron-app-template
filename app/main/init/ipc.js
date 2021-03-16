@@ -13,6 +13,19 @@ module.exports = (app => {
         app.getLogger('webLogger').info(args);
     });
 
+    ipcMain.handle('get-app-config', async () => {
+        const pdfViewer = `file://${path.resolve(require.resolve("electron-pdf-window-alt"), "../pdfjs/web/viewer.html")}`;
+        const locale = await app.getLocale();
+
+        return {
+            timestamp: (new Date).getTime(),
+            pdfViewer,
+            locale: locale,
+            ...app.config
+        }
+
+    })
+
     //
     ipcMain.on('login-success-and-main-show', () => {
         app.logger.info('ipc:login-success-and-main-show');
@@ -32,7 +45,7 @@ module.exports = (app => {
 
 
     ipcMain.handle('switch-language', async (event, args) => {
-        app.logger.info(`switch-language:${args}`);
+        app.logger.info(`ipc:switch-language:${args}`);
         await app.setLocale(args);
     });
 

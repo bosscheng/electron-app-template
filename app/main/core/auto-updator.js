@@ -34,7 +34,6 @@ class AutoUpdator {
     constructor(app) {
         this.app = app;
     }
-
     //
     async update({url, installerURL, signature}) {
         const exePath = electronApp.getPath('exe');

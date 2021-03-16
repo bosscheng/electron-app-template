@@ -3,18 +3,20 @@
  * Desc:
  */
 
+delete window.exports;
+delete window.module;
+
 const isDev = "development" === process.env.NODE_ENV;
 window.appData = {
     isDev: isDev,
     timestamp: (new Date).getTime(),
     isWin: "win32" === navigator.platform.toLowerCase()
 };
-
 const {ipcRenderer, shell} = require('electron');
-
 window._ipcRenderer = ipcRenderer;
-
 window._isElectron = true;
+
+console.log("preload");
 
 document.onreadystatechange = () => {
     if ('interactive' === document.readyState) {

@@ -2,4 +2,7 @@
 node_modules
 .idea
 render/node_modules
+logs
+storage
+
 

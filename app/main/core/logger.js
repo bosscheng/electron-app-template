@@ -81,8 +81,15 @@ module.exports = (app => {
 
     app.electronLogger = logger({
         name: "electron",
-        symlinkName: 'app'
+        symlinkName: 'app',
+        debug: app.isDev
     });
-    app.httpClientLogger = logger({name: 'http-client'});
-    app.webLogger = logger({name: "web"});
+    app.httpClientLogger = logger({
+        name: 'http-client',
+        debug: app.isDev
+    });
+    app.webLogger = logger({
+        name: "web",
+        debug: app.isDev
+    });
 });

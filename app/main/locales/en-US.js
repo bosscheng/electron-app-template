@@ -4,8 +4,9 @@
  */
 module.exports = {
     "测试": "Test",
-    "template": "Template",
+    "关于xx": "About xx",
     "退出": "Quit",
     "调试": "Debug",
-    "窗口": "Window"
+    "窗口": "Window",
+    "托盘":'Tray'
 };

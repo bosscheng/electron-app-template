@@ -26,7 +26,7 @@ const mountTray = app => {
     tray.on('click', () => {
         app.loginWindow && !app.loginWindow.isDestroyed() ? app.loginWindow.isVisible() ? app.loginWindow.hide() : app.loginWindow.show() : app.mainWindow && (app.mainWindow.isVisible() ? app.mainWindow.hide() : app.mainWindow.show())
     });
-    tray.setToolTip(app.t('xx'));
+    tray.setToolTip(app.t('托盘'));
     tray.on('right-click', () => tray.popUpContextMenu(contextMenu));
 
 };

@@ -12,5 +12,10 @@ export function logout() {
 }
 
 export function switchLanguage(lang) {
-  _rpc && _rpc.send('switch-language', lang);
+  _rpc && _rpc.invoke('switch-language', lang)
 }
+
+export async function getAppConfig() {
+  return _rpc ? _rpc.invoke('get-app-config') : null;
+}
+
