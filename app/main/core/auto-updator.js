@@ -88,26 +88,26 @@ class AutoUpdator {
             // mac
             if (!existsSync(latestPathMacZip)) {
                 return this.app.mainWindow.webContents.send('update-download-failed');
-                try {
-                    await exec(`unzip -o ${latestPathMacZip}`, {cwd: resourcePath, maxBuffer: 2 ** 28})
-                } catch (e) {
-                    app.logger.warn(e);
-                }
-
-                let waitResult = await waitUtil(() => existsSync(latestPath), {
-                    ms: 1000,
-                    retryTime: 30
-                })
-
-                if (!waitResult) {
-                    return this.app.mainWindow.webContents.send('update-download-failed');
-                }
-                const newAppPath = path.resolve(resourcePath, `${OLD_ARCHIVE_PREFIX}${(new Date).getTime()}.asar`);
-                // 讲原本的app.asar
-                renameSync(appPath, newAppPath);
-                // 将 原本的
-                renameSync(latestPath, appPath);
             }
+            try {
+                await exec(`unzip -o ${latestPathMacZip}`, {cwd: resourcePath, maxBuffer: 2 ** 28})
+            } catch (e) {
+                app.logger.warn(e);
+            }
+
+            let waitResult = await waitUtil(() => existsSync(latestPath), {
+                ms: 1000,
+                retryTime: 30
+            })
+
+            if (!waitResult) {
+                return this.app.mainWindow.webContents.send('update-download-failed');
+            }
+            const newAppPath = path.resolve(resourcePath, `${OLD_ARCHIVE_PREFIX}${(new Date).getTime()}.asar`);
+            // 讲原本的app.asar
+            renameSync(appPath, newAppPath);
+            // 将 原本的
+            renameSync(latestPath, appPath);
         } else {
             // window
 
