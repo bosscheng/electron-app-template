@@ -28,7 +28,8 @@ module.exports = (app => {
 
     //
     ipcMain.on('login-success-and-main-show', (event, args) => {
-        app.logger.info(`ipc:login-success-and-main-show,token:${args}`);
+        app.logger.info(`ipc:login-success-and-main-show,token:${JSON.stringify(args)}`);
+        app.currentUser = args;
         app.loginWindow.destroy();
         if (app.isDev) {
             app.mainWindow.webContents.openDevTools();

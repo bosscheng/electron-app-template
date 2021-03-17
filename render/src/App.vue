@@ -31,6 +31,9 @@
         //
         addEventListener(EVENTS.openSetting, () => {
           this.dialogVisible = true;
+        });
+        addEventListener(EVENTS.wlanStatusChanged, (code) => {
+          console.log('wlanStatusChanged', code);
         })
       }
     },

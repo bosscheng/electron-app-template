@@ -108,7 +108,6 @@ module.exports = (app => {
         })
     }
 
-
     browserWindow.on('blur', () => {
         browserWindow.webContents.send('window-blur');
     })
@@ -132,7 +131,7 @@ module.exports = (app => {
         }
         browserWindow.hide();
         browserWindow.webContents.send('window-will-hide');
-    })
+    });
 
 
     return browserWindow;

@@ -4,6 +4,10 @@
  */
 const {app: electronApp, globalShortcut, session, crashReporter} = require('electron');
 
+const {execIfDisableHardwareAcceleration} = require('./core/hardware-acceleration');
+
+execIfDisableHardwareAcceleration();
+
 crashReporter.start({
     productName: "test",
     companyName: "test",
@@ -12,6 +16,7 @@ crashReporter.start({
     uploadToServer: true,
     ignoreSystemCrashHandler: true
 });
+
 
 const App = require('./init/app');
 
@@ -26,16 +31,14 @@ const singleInstanceLock = electronApp.requestSingleInstanceLock();
 if (singleInstanceLock) {
     //
     electronApp.on('second-instance', () => {
-        //  查看打开的是否是 login window 还是 main window
-        app.loginWindow &&
-        !app.loginWindow.isDestroyed() ?
-            (app.loginWindow.isVisible() || app.loginWindow.show(),
-            app.loginWindow.isMinimized() && app.loginWindow.restore(),
-                app.loginWindow.focus()) :
-            app.mainWindow &&
-            (app.mainWindow.isVisible() || app.mainWindow.show(),
-            app.mainWindow.isMinimized() && app.mainWindow.restore(),
-                app.mainWindow.focus())
+        const currentWindow = app.getCurrentWindow();
+        if (!currentWindow.isVisible()) {
+            currentWindow.show();
+        }
+        if (currentWindow.isMinimized()) {
+            currentWindow.restore();
+        }
+        currentWindow.focus();
     });
 
     // 监听 ready 事件
@@ -43,6 +46,7 @@ if (singleInstanceLock) {
         try {
             await app.init();
         } catch (e) {
+            console.error(e);
             app.logger.warn(e);
         }
         app.launchLogin();
@@ -54,7 +58,7 @@ if (singleInstanceLock) {
 
 
 electronApp.on('activate', () => {
-
+    app.currentUser ? app.mainWindow && app.mainWindow.show() : app.loginWindow && app.loginWindow.show()
 });
 
 electronApp.on('before-quit', () => {

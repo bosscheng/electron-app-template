@@ -81,9 +81,12 @@
             this.loading = true;
             loginApi.login(this.loginForm).then((data) => {
               this.loading = false;
-              this.$store.dispatch('UpdateToken', data).then(()=>{
+              this.$store.dispatch('UpdateToken', data).then(() => {
                 if (isElectron) {
-                  loginSuccessAndMainShow('Bearer '+data);
+                  loginSuccessAndMainShow({
+                    token: 'Bearer ' + data,
+                    userName: 'admin'
+                  });
                 } else {
                   this.$router.push({path: '/'});
                 }

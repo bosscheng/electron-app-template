@@ -30,6 +30,7 @@ class App {
         this.currentContext = null;
         this.locale = '';
         this.storage = null;
+        this.currentUser = null;
     }
 
     get config() {
@@ -98,6 +99,9 @@ class App {
         const initOpenAtLogin = require('./open-at-login');
         const initTray = require('./tray');
         const initShortcut = require('./shortcut');
+        const initNetworkShim = require('./network-shim');
+        const initHardwareAcceleration = require('../core/hardware-acceleration');
+        const initTouchBarManager = require('../windows/touchbar-manager');
         require('./protocols');
         this.mainWindow = initMainWindow(this);
         // this.logger.info('init');
@@ -106,6 +110,9 @@ class App {
         initOpenAtLogin(this);
         initTray(this);
         initShortcut(this);
+        initNetworkShim(this);
+        initHardwareAcceleration(this);
+        initTouchBarManager(this);
     }
 
     launchLogin() {
@@ -115,6 +122,13 @@ class App {
         }
         this.loginWindow.loadURL(this.getResourceURL('/login'));
         this.loginWindow.show();
+    }
+
+    getCurrentWindow() {
+        if (this.loginWindow && !this.loginWindow.isDestroyed()) {
+            return this.loginWindow;
+        }
+        return this.mainWindow;
     }
 }
 

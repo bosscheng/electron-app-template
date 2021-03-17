@@ -11,10 +11,7 @@ class Context {
         this.tracert = {
             traceId: genTraceId()
         };
-
-        this.currentSession = app.currentSession;
         this.currentUser = app.currentUser;
-        this.model = app.model;
     }
 
     // 请求

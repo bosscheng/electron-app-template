@@ -3,8 +3,8 @@ const _rpc = window._ipcRenderer;
 
 export const isElectron = window._isElectron;
 
-export function loginSuccessAndMainShow(token) {
-  _rpc && _rpc.send('login-success-and-main-show', token);
+export function loginSuccessAndMainShow(user) {
+  _rpc && _rpc.send('login-success-and-main-show', user);
 }
 
 export function logout() {
@@ -29,5 +29,6 @@ export function addEventListener(event, handler) {
 export const EVENTS = {
   openSetting: 'open-setting',
   logPv: 'log-pv',
-  updateCheck: 'update-check'
+  updateCheck: 'update-check',
+  wlanStatusChanged:'wlan-status-changed',
 };
