@@ -3,6 +3,8 @@ const _rpc = window._ipcRenderer;
 
 export const isElectron = window._isElectron;
 
+export const electronData = window._appData;
+
 export function loginSuccessAndMainShow(user) {
   _rpc && _rpc.send('login-success-and-main-show', user);
 }
@@ -30,5 +32,5 @@ export const EVENTS = {
   openSetting: 'open-setting',
   logPv: 'log-pv',
   updateCheck: 'update-check',
-  wlanStatusChanged:'wlan-status-changed',
+  wlanStatusChanged: 'wlan-status-changed',
 };

@@ -1,5 +1,11 @@
 <template>
   <div class="app-wrapper" :class="classObj">
+    <template v-if="isMac">
+      <div className="drag-area osx"></div>
+    </template>
+    <template v-if="isWin">
+      <windows-header></windows-header>
+    </template>
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div>
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
@@ -15,16 +21,26 @@
 <script>
   import {mapState} from "vuex";
   import {Navbar, Sidebar, AppMain} from './components';
-  import ResizeMixin from './mixin/ResizeHandler'
+  import ResizeMixin from './mixin/ResizeHandler';
+  import WindowsHeader from '../../components/WindowsHeader';
+  import {isElectron, electronData} from "../../utils/electron";
 
   export default {
     name: "layout",
     components: {
       Navbar,
       Sidebar,
+      WindowsHeader,
       AppMain //
     },
     mixins: [ResizeMixin],
+    data() {
+      return {
+        isMac: electronData.isMac,
+        isWin: electronData.isWin
+      }
+
+    },
     computed: {
       ...mapState({
         sidebar: state => state.sidebar,

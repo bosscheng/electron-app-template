@@ -51,6 +51,12 @@ module.exports = (app => {
         await app.setLocale(args);
     });
 
+    ipcMain.on('un-max-window', () => {
+        if (app.mainWindow && app.mainWindow.isMaximized()) {
+            app.mainWindow.unmaximize();
+        }
+    });
+
     //
     ipcMain.on('toggle-maximize', () => {
         app.mainWindow.isMaximized() ? app.mainWindow.unmaximize() : app.mainWindow.maximize()

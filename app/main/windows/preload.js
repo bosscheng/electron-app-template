@@ -7,10 +7,11 @@ delete window.exports;
 delete window.module;
 
 const isDev = "development" === process.env.NODE_ENV;
-window.appData = {
+window._appData = {
     isDev: isDev,
     timestamp: (new Date).getTime(),
-    isWin: "win32" === navigator.platform.toLowerCase()
+    isWin: "win32" === navigator.platform.toLowerCase(),
+    isMac: "darwin" === navigator.platform.toLowerCase()
 };
 const {ipcRenderer, shell} = require('electron');
 window._ipcRenderer = ipcRenderer;
@@ -53,6 +54,7 @@ window.addEventListener('error', e => {
     ipcRenderer.send('web-error', envelope);
 }, false);
 
+
 document.addEventListener('click', e => {
     const target = e.target;
     if ('A' === target.nodeName) {
@@ -77,12 +79,14 @@ window.openExternalLink = (href) => {
 
 
 window.addEventListener('keydown', e => {
-    const {altKey, ctrlKey, metaKey, keyCode} = e;
+    const {altKey, ctrlKey, metaKey, keyCode, shiftKey} = e;
     <!--alt + ctrl + (Command | Windows) + d -->
     if (altKey && ctrlkey && metaKey && keyCode === 68) {
         const currentWindow = require('electron').remote.getCurrentWindow();
         currentWindow && currentWindow.toggleDevTools();
         e.preventDefault();
+    } else if (keyCode === 27 && (!shiftKey || !ctrlKey)) {
+        ipcRenderer.send('un-max-window')
     }
 }, false);
 
