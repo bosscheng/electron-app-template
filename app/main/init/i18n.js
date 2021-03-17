@@ -17,6 +17,7 @@ const replaceData = (key, lang) => {
 
 
 module.exports = (app => {
+    app.logger.info('init i18n');
     // 绑定 t 方法。
     app.t = ((title, lang = {}) => {
         if (app.locale.startsWith('zh')) {

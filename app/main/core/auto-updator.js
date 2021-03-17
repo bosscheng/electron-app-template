@@ -34,6 +34,7 @@ class AutoUpdator {
     constructor(app) {
         this.app = app;
     }
+
     //
     async update({url, installerURL, signature}) {
         const exePath = electronApp.getPath('exe');
@@ -137,52 +138,57 @@ class AutoUpdator {
 
     // download file
     downloadFile(url, signature, localSavedDir, callback) {
+        const {app} = this;
         const writeStream = createWriteStream(localSavedDir);
         const verify = crypto.createVerify('SHA256');
         let downloadSize = 0;
         //
         return new Promise((resolve, reject) => {
-            const request = httpClient.request(url, {
-                streaming: true,
-                followRedirect: true,
-                timeout: 600000
-            })
-            const contentLength = request.headers['content-length'];
-            request.res.on('data', (data) => {
-                verify.update(data);
-                writeStream.write(data);
-                downloadSize += data.length;
-                callback({currentLength: downloadSize, totalLength: contentLength});
-            });
+            (async () => {
+                    const request = await app.httpClient.request(url, {
+                        streaming: true,
+                        followRedirect: true,
+                        timeout: 600000
+                    });
+                    const contentLength = request.headers['content-length'];
+                    request.res.on('data', (data) => {
+                        verify.update(data);
+                        writeStream.write(data);
+                        downloadSize += data.length;
+                        callback({currentLength: downloadSize, totalLength: contentLength});
+                    });
 
-            request.res.on('end', () => {
-                verify.end();
-                writeStream.end();
-                try {
-                    // 校验
-                    const verifyResult = verify.verify(public_key, signature, 'hex')
-                    if (verifyResult) {
-                        resolve();
-                    } else {
-                        reject();
-                    }
-                } catch (e) {
-                    app.logger.warn(e);
+                    request.res.on('end', () => {
+                        verify.end();
+                        writeStream.end();
+                        try {
+                            // 校验
+                            const verifyResult = verify.verify(public_key, signature, 'hex')
+                            if (verifyResult) {
+                                resolve();
+                            } else {
+                                reject();
+                            }
+                        } catch (e) {
+                            app.logger.warn(e);
+                        }
+                    });
+                    request.res.on('error', reject);
                 }
-            });
-            request.res.on('error', reject);
+            )()
         })
-
     }
 
-    // 检查更新
+// 检查更新
     async check(updateUrl, currentVersion, loginName) {
-        const response = await httpClient.request(updateUrl, {
+        const {app} = this;
+        const response = await app.httpClient.request(updateUrl, {
             dataType: "json",
             timeout: 1000
         });
 
         let data = response.data || {};
+        //
         let release = data.release || [
             {
                 platform: "darwin",

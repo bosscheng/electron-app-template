@@ -8,6 +8,7 @@ const path = require('path');
 const {ipcMain, Menu, shell, app: electronApp} = require('electron');
 
 module.exports = (app => {
+    app.logger.info('init ipc');
 
     ipcMain.on('weblog', async (event, args) => {
         app.getLogger('webLogger').info(args);
@@ -23,12 +24,11 @@ module.exports = (app => {
             locale: locale,
             ...app.config
         }
-
-    })
+    });
 
     //
-    ipcMain.on('login-success-and-main-show', () => {
-        app.logger.info('ipc:login-success-and-main-show');
+    ipcMain.on('login-success-and-main-show', (event, args) => {
+        app.logger.info(`ipc:login-success-and-main-show,token:${args}`);
         app.loginWindow.destroy();
         if (app.isDev) {
             app.mainWindow.webContents.openDevTools();
@@ -39,6 +39,7 @@ module.exports = (app => {
 
     //
     ipcMain.on('logout', () => {
+        app.logger.info('ipc:logout');
         app.mainWindow.destroy();
         app.launchLogin();
     });
@@ -49,6 +50,7 @@ module.exports = (app => {
         await app.setLocale(args);
     });
 
+    //
     ipcMain.on('toggle-maximize', () => {
         app.mainWindow.isMaximized() ? app.mainWindow.unmaximize() : app.mainWindow.maximize()
     });

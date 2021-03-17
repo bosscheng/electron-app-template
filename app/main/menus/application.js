@@ -6,6 +6,8 @@
 const {app: electronApp, Menu} = require('electron');
 
 module.exports = (app => {
+    app.logger.info('init application');
+
     const tabs = [
         {
             label: 'Application',

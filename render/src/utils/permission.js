@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
         next({path: '/home'});
         NProgress.done() //  end progress
         if (isElectron) {
-          loginSuccessAndMainShow();
+          loginSuccessAndMainShow(hasLogin);
         }
       } else {
         // 查看是否有权限了。

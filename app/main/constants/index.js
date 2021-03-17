@@ -4,6 +4,7 @@
  */
 
 module.exports = ((app) => {
+    app.logger.info('init constants');
     app.constants = {
         test: "test"
     }

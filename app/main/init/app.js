@@ -37,6 +37,7 @@ class App {
             return this[CONFIG];
         }
         this[CONFIG] = {};
+        // pkg
         this[CONFIG].pkg = require("../../../package");
 
         return this[CONFIG];
@@ -83,10 +84,9 @@ class App {
         }
 
         this.locale = await this.getLocale();
-        //
+        initLogger(this);
         initConstants(this);
         initI18n(this);
-        initLogger(this);
         initUrlUtil(this);
         initHttpClient(this);
         this.logger.info(`storage data path is ${this.storage.getDataPath()}`)
@@ -100,10 +100,10 @@ class App {
         const initShortcut = require('./shortcut');
         require('./protocols');
         this.mainWindow = initMainWindow(this);
-        this.logger.info('init');
+        // this.logger.info('init');
         initApplication(this);
         initIPC(this);
-        initOpenAtLogin();
+        initOpenAtLogin(this);
         initTray(this);
         initShortcut(this);
     }

@@ -56,3 +56,6 @@ const downloadFile = async (app, url) => {
         })
     }
 };
+module.exports = {
+    downloadFile
+};

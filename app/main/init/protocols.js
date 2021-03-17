@@ -4,7 +4,7 @@
  */
 const {app: electronApp, dialog} = require('electron');
 const path = require('path');
-const SCHEMA_NAME = 'xx';
+const SCHEMA_NAME = 'xx'; // 协议前缀
 
 if (process.defaultApp) {
     if (process.argv.length >= 2) {

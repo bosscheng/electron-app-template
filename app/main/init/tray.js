@@ -33,6 +33,7 @@ const mountTray = app => {
 
 
 module.exports = (app => {
+    app.logger.info('init tray');
     mountTray(app);
 
     nativeTheme.on('updated', () => {

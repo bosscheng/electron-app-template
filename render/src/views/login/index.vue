@@ -83,7 +83,7 @@
               this.loading = false;
               this.$store.dispatch('UpdateToken', data).then(()=>{
                 if (isElectron) {
-                  loginSuccessAndMainShow();
+                  loginSuccessAndMainShow('Bearer '+data);
                 } else {
                   this.$router.push({path: '/'});
                 }

@@ -4,10 +4,13 @@
  */
 const path = require('path');
 const url = require('url');
+const {parse: cookieParse} = require('cookie');
 const {app: electronApp, BrowserView, BrowserWindow, dialog} = require('electron');
 const {sleep} = require('../utils');
+const {downloadFile} = require('../core/download-file');
 
 module.exports = (app => {
+    app.logger.info('init main window');
     const browserWindow = new BrowserWindow({
         width: 1280,
         height: 800,
@@ -52,17 +55,33 @@ module.exports = (app => {
         browserWindow.removeBrowserView(loadingBrowserView);
     });
 
-    // const webRequestFilter = {
-    //     urls: []
-    // };
-    //
-    // browserWindow.webContents.session.webRequest.onBeforeRequest(webRequestFilter, (details, callback) => {
-    //     // 监听 before request
-    // });
-    //
-    // browserWindow.webContents.session.webRequest.onBeforeSendHeaders(webRequestFilter, (details, callback) => {
-    //     // 监听 before request
-    // });
+    // 需要拦截的请求。
+    const webRequestFilter = {
+        urls: ["*://test.aaa.com/*", "*://*.ccc.com/*"]
+    };
+
+    browserWindow.webContents.session.webRequest.onBeforeRequest(webRequestFilter, (details, callback) => {
+        // 监听 before request
+
+        // 是否存在下载
+        if (details.url.includes('desktop-download')) {
+            downloadFile(app, details.url);
+        }
+        // 原始请求被阻止发送或完成，而不是重定向到给定的URL
+        callback({redirectURL: details.redirectURL});
+    });
+
+    browserWindow.webContents.session.webRequest.onBeforeSendHeaders(webRequestFilter, (details, callback) => {
+        // 绑定header 头部。
+        if (details.requestHeaders.Cookie) {
+            const {ctoken = ''} = cookieParse(details.requestHeaders.Cookie);
+            if (ctoken) {
+                details.requestHeaders['x-csrf-token'] = ctoken;
+            }
+        }
+        // When provided, request will be made with these headers.
+        callback({requestHeaders: details.requestHeaders});
+    });
 
 
     browserWindow.on('crashed', () => {
@@ -80,6 +99,7 @@ module.exports = (app => {
         browserWindow.webContents.send('update-check');
     });
 
+    //
     if (app.isMac) {
         browserWindow.on('restore', () => {
             //

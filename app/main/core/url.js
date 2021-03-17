@@ -8,6 +8,7 @@ const {WEBPACK_DEV_SERVER_PORT: port} = process.env;
 
 
 module.exports = (app => {
+    app.logger.info('init url util');
     app.getLoadingURL = () => {
         let pathname = path.join(__dirname, '../../../build/renderer/loading.html');
 
