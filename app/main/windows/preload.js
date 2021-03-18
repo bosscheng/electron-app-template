@@ -22,6 +22,16 @@ console.log("preload");
 document.onreadystatechange = () => {
     if ('interactive' === document.readyState) {
         //  可以预先处理dom了。
+        //   可以注入css
+        const style = document.createElement('style');
+        const styleInner = `
+        body{
+            background: transparent !important
+        }
+        `;
+        const textNode = document.createTextNode(styleInner);
+        style.appendChild(styleInner);
+        document.head.appendChild(style);
     }
 };
 
@@ -71,6 +81,7 @@ document.addEventListener('click', e => {
     }
 }, false);
 
+//
 window.openExternalLink = (href) => {
     if (href) {
         shell.openExternal(href);
