@@ -58,16 +58,27 @@ if (singleInstanceLock) {
 
 
 electronApp.on('activate', () => {
-    app.currentUser ? app.mainWindow && app.mainWindow.show() : app.loginWindow && app.loginWindow.show()
+    app.logger.info('activate');
+    app.getCurrentWindow().show();
 });
 
 electronApp.on('before-quit', () => {
+    app.logger.info('before-quit');
     globalShortcut.unregisterAll();
     electronApp.exit();
 });
 
+electronApp.on('will-quit', () => {
+    app.logger.info('will-quit');
+    globalShortcut.unregisterAll();
+})
+
+
 electronApp.on('window-all-closed', () => {
-    if (!app.isMac) {
+    app.logger.info('window-all-closed');
+    if (app.isMac) {
+        electronApp.exit();
+    } else {
         electronApp.quit();
     }
 });
