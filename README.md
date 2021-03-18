@@ -56,6 +56,34 @@ console logger
 同步控制台输出日志。
  
 # 调试 
+
+
+
+# 已经实现功能
+
+- 本地数据库
+- 自动升级
+- 网络检查(window)
+- 主进程http请求客户端
+- 下载文件
+- http请求客户端
+- IPC 通讯（渲染window 发送消息给主进程）
+- IPC 通讯（主进程发送消息给渲染window）
+- 设置开机启动项
+- 其他应用唤醒客户端
+- 全局快捷键
+- 托盘
+- 应用菜单(mac)
+- 国际化
+- TouchBar
+- 硬件加速（mac）
+- 模式(development、production)
+- 崩溃日志发送
+- 单例模式
+- 白屏
+- electron bridge
+- 代理设置（还没）
+
  
  
  
