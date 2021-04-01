@@ -33,6 +33,7 @@ const {sleep, waitUtil} = require('../utils');
 class AutoUpdator {
     constructor(app) {
         this.app = app;
+        this.isChecking = false;
     }
 
     //
