@@ -18,7 +18,8 @@ module.exports = (async (app) => {
     const latestVolumesDir = path.join('/Volumes', `${latestDmgPath} ${latestVersion}`);
     const latestAppPath = path.join(latestVolumesDir, `${appDisplayName}.app`);
 
-    //
+    // step 1 which hdiutil
+    // /usr/bin/hdiutil
     try {
         const hdiutilResult = await spawnAsync('which', ['hdiutil']);
 
@@ -33,8 +34,28 @@ module.exports = (async (app) => {
         }
     }
 
+    // step 2 hdiutil eject
     try {
         await spawnAsync("hdiutil", ["eject", latestVolumesDir])
+    } catch (e) {
+        e.customMessage = '[InstallMacOSDmgError] step2 volume exists';
+        app.logger.warn(e);
+    } finally {
+        const result = await waitUntil(() => !existsSync(latestAppPath), {
+            ms: 300,
+            retryTime: 5
+        });
+        if (!result) {
+            app.logger.warn('[InstallMacOSDmgError] step2 volume exists');
+            return {
+                success: false
+            }
+        }
+    }
+
+    //step 3 hdiutil attach
+    try {
+        await spawnAsync('hdiutil', ['attach', latestDmgPath])
     } catch (e) {
         e.customMessage = '[InstallMacOSDmgError] step3 hdiutil attach error';
         app.logger.warn(e);
@@ -43,6 +64,7 @@ module.exports = (async (app) => {
             ms: 300,
             retryTime: 5
         });
+
         if (!result) {
             app.logger.warn('[InstallMacOSDmgError] step3 hdiutil attach fail');
             return {
@@ -51,6 +73,7 @@ module.exports = (async (app) => {
         }
     }
 
+    // step 4 mv
     try {
         await spawnAsync('mv', [macOsAppPath, tempDir]);
     } catch (e) {
@@ -71,6 +94,7 @@ module.exports = (async (app) => {
         }
     }
 
+    // step 5
     try {
         await spawnAsync('cp', ['-R', latestAppPath, macOsAppPath])
     } catch (e) {
@@ -91,6 +115,7 @@ module.exports = (async (app) => {
         }
     }
 
+    // step 6 
     try {
         await spawnAsync('hdiutil', ['eject', latestVolumesDir])
     } catch (e) {
