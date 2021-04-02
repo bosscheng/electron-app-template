@@ -28,7 +28,7 @@ const OLD_ARCHIVE_PREFIX = 'old-';
 
 const public_key = 'xxx';
 
-const {sleep, waitUtil} = require('../utils');
+const {sleep, waitUntil} = require('../utils');
 
 class AutoUpdator {
     constructor(app) {
@@ -96,7 +96,7 @@ class AutoUpdator {
                 app.logger.warn(e);
             }
 
-            let waitResult = await waitUtil(() => existsSync(latestPath), {
+            let waitResult = await waitUntil(() => existsSync(latestPath), {
                 ms: 1000,
                 retryTime: 30
             })

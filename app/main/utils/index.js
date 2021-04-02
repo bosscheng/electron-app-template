@@ -2,8 +2,10 @@
  * Date:2020/5/21
  * Desc:
  */
+const {spawn} = require("child_process");
+
 const sleep = e => new Promise(t => setTimeout(t, e));
-const waitUtil = async (callback, options = {ms: 1000, retryTime: 10}) => {
+const waitUntil = async (callback, options = {ms: 1000, retryTime: 10}) => {
     let retryTime = 0;
     const fn = async () => {
         let waitResult = callback();
@@ -42,10 +44,40 @@ const genTraceId = () => {
     return `${uuid(8)}${Date.now()}${traceIdIndex++}`
 }
 
+const spawnAsync = (...options)=> {
+    let data = '';
+    let error = '';
+
+    const doSpawn = spawn(...options);
+
+    doSpawn.stdout.on('data', d => {
+        data += d;
+    });
+
+    doSpawn.stderr.on('data', e => {
+        error += e;
+    });
+
+    return new Promise((resolve, reject) => {
+        doSpawn.on('error', reject);
+        doSpawn.on('close', code => {
+            if (code === 0) {
+                resolve(data.toString());
+            } else {
+                const _error = new Error(`child exited with code ${code}`);
+                _error.code = code;
+                _error.stderr = error.toString();
+                reject(_error);
+            }
+        })
+    })
+}
+
 
 module.exports = {
     sleep,
     genTraceId,
     uuid,
-    waitUtil
+    waitUntil,
+    spawnAsync
 };

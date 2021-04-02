@@ -26,7 +26,7 @@ const {rename, createWriteStream, exists, readdir, existsSync} = require("origin
 const rimraf = require('rimraf-alt');
 const {app: electronApp, shell, dialog, ipcMain} = require('electron');
 const installMacOSDmg = require("./install-macos-dmg");
-const {waitUtil} = require('../../utils');
+const {waitUntil} = require('../../utils');
 const execAsync = util.promisify(exec);
 const renameAsync = util.promisify(rename);
 const existsAsync = util.promisify(exists);
@@ -158,7 +158,7 @@ class AutoUpdator {
             app.logger.warn(e);
         }
 
-        let result = await waitUtil(() => existsAsync(latestAsarPath), {
+        let result = await waitUntil(() => existsAsync(latestAsarPath), {
             ms: 1000,
             retryTime: 30
         });
