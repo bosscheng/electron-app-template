@@ -115,7 +115,7 @@ module.exports = (async (app) => {
         }
     }
 
-    // step 6 
+    // step 6
     try {
         await spawnAsync('hdiutil', ['eject', latestVolumesDir])
     } catch (e) {
