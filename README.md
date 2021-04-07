@@ -84,7 +84,9 @@ console logger
 - electron bridge
 - 代理设置（还没）
 
+ # 解惑文章
  
+ [electron 桌面端业务中的小结(坑)](https://juejin.cn/post/6940643332787798029)
  
  
 # Fix 
