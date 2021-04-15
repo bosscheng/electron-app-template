@@ -2,9 +2,11 @@
  * Date:2020/5/21
  * Desc:
  */
+"use strict";
 
 delete window.exports;
 delete window.module;
+window._electron_bridge = require('electron-bridge');
 
 const isDev = "development" === process.env.NODE_ENV;
 window._appData = {
@@ -13,6 +15,7 @@ window._appData = {
     isWin: "win32" === navigator.platform.toLowerCase(),
     isMac: "darwin" === navigator.platform.toLowerCase()
 };
+
 const {ipcRenderer, shell} = require('electron');
 window._ipcRenderer = ipcRenderer;
 window._isElectron = true;
