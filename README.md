@@ -10,7 +10,7 @@
 app目录下主要是存放的是electron 应用程序。
 
 ## render 目录
-主要是渲染window 的页面，同时支持，web 桌面 
+主要是渲染window 的页面，同时支持，web 桌面 ,目前的render 使用的`vue`。 对于 `react` 也是一样的方式。
  
 
 # 运行
@@ -83,11 +83,28 @@ console logger
 - 白屏
 - electron bridge
 - 代理设置（还没）
+- 杀毒软件破坏检查
+- 防止debug调试
+- 客户端崩溃报告
+- 提升客户端启动速度
+- 性能监测分析
+- 延迟加载模块
+- 滚动条样式统一
+- browserWindow 错误监听
+- browserWindow a 标签，打开默认浏览器
+- electron-中无法使用-jquery、requirejs、meteor、angularjs。
+- electron-bridge
+- 代理设置
+- 系统版本比较(mac)
+- 多窗口管理
+- 类似vscode无缝升级安装
+
 
  # 解惑文章
  
  [electron 桌面端业务中的小结(坑)](https://juejin.cn/post/6940643332787798029)
- 
+ [electron 桌面端业务中的小结(坑)(二)](https://juejin.cn/post/6950512014502395912)
+
  
 # Fix 
  

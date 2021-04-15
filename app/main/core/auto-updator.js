@@ -1,12 +1,7 @@
 /**
  * Date:2020/5/21
- * Desc:
+ * Desc: 旧的升级方式。
  */
-/**
- * Date: 5/18/20
- * Desc: 自动更新
- */
-
 const fs = require('fs');
 //
 const path = require('path');
