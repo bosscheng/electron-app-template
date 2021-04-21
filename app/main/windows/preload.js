@@ -6,7 +6,7 @@
 
 delete window.exports;
 delete window.module;
-window._electron_bridge = require('electron-bridge');
+window._electron_bridge = require('./electron-bridge');
 
 const isDev = "development" === process.env.NODE_ENV;
 window._appData = {
@@ -33,7 +33,7 @@ document.onreadystatechange = () => {
         }
         `;
         const textNode = document.createTextNode(styleInner);
-        style.appendChild(styleInner);
+        style.appendChild(textNode);
         document.head.appendChild(style);
     }
 };
@@ -71,13 +71,12 @@ window.addEventListener('error', e => {
 document.addEventListener('click', e => {
     const target = e.target;
     if ('A' === target.nodeName) {
-
         if (target.defaultPrevented) {
             return;
         }
         if (location.hostname) {
             e.preventDefault();
-            if (target.href) {
+            if (target.href && target.href.indexOf('localhost') === -1) {
                 shell.openExternal(target.href);
             }
         }

@@ -4,7 +4,9 @@
   "description": "electron Desktop App",
   "main": "./app/main/index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development WEBPACK_DEV_SERVER_PORT=3000 DISABLE_LOG_REMOTE=false CONSOLE_LOGGER=true electron ."
+    "dev": "npm run dev-vue",
+    "dev-vue": "cross-env NODE_ENV=development WEBPACK_DEV_SERVER_PORT=3000 DISABLE_LOG_REMOTE=false CONSOLE_LOGGER=true electron .",
+    "dev-react": "cross-env NODE_ENV=development WEBPACK_DEV_SERVER_PORT=8000 DISABLE_LOG_REMOTE=false CONSOLE_LOGGER=true electron ."
   },
   "dependencies": {
     "electron": "9.4.0",

@@ -1,0 +1,8 @@
+{
+  "name": "React Admin Template",
+  "short_name": "React Admin Template",
+  "display": "standalone",
+  "start_url": "./?utm_source=homescreen",
+  "theme_color": "#002140",
+  "background_color": "#001529"
+}

@@ -2,7 +2,11 @@
 node_modules
 .idea
 render/node_modules
+render2/node_modules
+render2/src/.umi
+render2/yarn.lock
 logs
 storage
+
 
 

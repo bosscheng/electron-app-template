@@ -15,7 +15,9 @@ app目录下主要是存放的是electron 应用程序。
 
 # 运行
 
+## vue
 ### web (首先执行)
+
 > 必须在render 目录下执行。
 1. cd render
 2. npm run dev
@@ -26,6 +28,18 @@ app目录下主要是存放的是electron 应用程序。
 
 npm run dev
 
+## react
+### web (首先执行)
+
+> 必须在render 目录下执行。
+1. cd render2
+2. npm run start (走的本地mock)
+
+### electron
+
+当前目录 执行
+
+npm run dev-react
 
 
  
