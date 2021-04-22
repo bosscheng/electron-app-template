@@ -113,6 +113,14 @@ console logger
 - 多窗口管理
 - 类似vscode无缝升级安装
 
+# 待实现功能
+
+- electron-packager 打包(window,mac)
+- electron-builder 打包(window,mac)
+- DropDMG 创建磁盘镜像(mac)
+- makensis 创建NSIS安装包(window)
+
+
 
  # 解惑文章
  
