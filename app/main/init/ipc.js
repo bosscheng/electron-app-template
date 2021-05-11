@@ -26,7 +26,7 @@ module.exports = (app => {
         }
     });
 
-    //
+    // 监听 登录成功之后。
     ipcMain.on('login-success-and-main-show', (event, args) => {
         app.logger.info(`ipc:login-success-and-main-show,token:${JSON.stringify(args)}`);
         app.currentUser = args;

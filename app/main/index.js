@@ -29,7 +29,7 @@ process.on("uncaughtException", e => {
 const singleInstanceLock = electronApp.requestSingleInstanceLock();
 
 if (singleInstanceLock) {
-    //
+    // 监听 second-instance
     electronApp.on('second-instance', () => {
         const currentWindow = app.getCurrentWindow();
         if (!currentWindow.isVisible()) {
