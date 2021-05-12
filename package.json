@@ -14,7 +14,7 @@
     "electron-pdf-window-alt": "0.1.2",
     "electron-webview-schedule": "^0.1.6",
     "electron-windows": "^0.2.1",
-    "lodash": "4.17.19",
+    "lodash": "4.17.21",
     "ylru": "1.2.1",
     "urllib": "2.35.0",
     "agentkeepalive": "4.1.2",
