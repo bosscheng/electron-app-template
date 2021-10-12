@@ -9,7 +9,7 @@
     "dev-react": "cross-env NODE_ENV=development WEBPACK_DEV_SERVER_PORT=8000 DISABLE_LOG_REMOTE=false CONSOLE_LOGGER=true electron ."
   },
   "dependencies": {
-    "electron": "9.4.0",
+    "electron": "11.5.0",
     "electron-json-storage-alt": "0.1.0",
     "electron-pdf-window-alt": "0.1.2",
     "electron-webview-schedule": "^0.1.6",
